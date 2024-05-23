@@ -19,12 +19,7 @@ html {
 }*/
 
 /* HEADER */
-header {
-    background-image: url('../img/sfondo-header-footer.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-}
+
 
 li {
     font-size: 20px;
@@ -151,11 +146,7 @@ li {
 
 /* FOOTER */
 footer {
-    background-image: url('../img/sfondo-header-footer.png');
     height: 260px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
     font-size: 18px;
 }
 

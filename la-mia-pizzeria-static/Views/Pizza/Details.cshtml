@@ -4,6 +4,8 @@
 @{
     ViewData["Title"] = "Dettagli Pizza";
     Layout = "_PizzeriaLayout";
+
+    var defaultImagePath = Url.Content("~/img/no-image.jpg");
 }
 
 <div class="container">
@@ -13,32 +15,42 @@
             <div class="card detail-card my-3">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        @if(Model.ImgSrc != null)
-                        {
-                            <img src="@Model.ImgSrc" class="img-fluid rounded-start" alt="@Model.Name">
-                        }
+                        <img src="@(string.IsNullOrEmpty(Model.ImgSrc) ? defaultImagePath : Model.ImgSrc)" class="img-fluid rounded-start" alt="@Model.Name">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
                             <p class="card-text fs-5">Descizione: @Model.Description</p>
                             <p class="card-text fs-5"> Prezzo: <strong class="text-success"> € @Model.Price.ToString("0.00")</strong></p>
                             <p class="card-text">Categoria: @($"{Model.ViewCategory()}")</p>
-                            <p class="card-text mb-0"> Ingredienti da cui è composta:
+                            <p class="card-text mb-0">
+                                Ingredienti da cui è composta:
                                 @if (Model.Ingredients?.Count > 0)
-                                 {
+                                {
                                     <div class="d-flex flex-wrap">
                                         @foreach (var ing in Model.Ingredients)
                                         {
                                             <div class="ingredients m-1 p-1 text-white"> @ing.Name </div>
                                         }
                                     </div>
-                                 }
-                                 else
-                                 {
+                                }
+                                else
+                                {
                                     <span class="fw-bold">Non sono stati ancora aggiunti gli ingedienti di cui è composta la pizza.</span>
-                                 }
+                                }
 
                             </p>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                @*MODIFICA*@
+                                <a href="@Url.Action("Update", "Pizza", new { id = Model.Id })" class="btn btn-warning mt-5 px-5"><i class="fa-solid fa-pen-to-square"></i> Modifica</a>
+                                @*CANCELLAZIONE*@
+                                <a href="javascript:void(0);" class="btn btn-danger mt-5 px-5" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-form-id="@Model.Id" data-pizza-name="@Model.Name" onclick="setFormId('@Model.Id', '@Model.Name')">
+                                    <i class="fa-solid fa-trash"></i> Cancella
+                                </a>
+                                <form id="deletePizzaForm-@Model.Id" asp-controller="Pizza" asp-action="Delete" asp-route-id="@Model.Id" method="post" class="d-none">
+                                    @Html.AntiForgeryToken()
+                                </form>
+                            }
                         </div>
                     </div>
                 </div>
@@ -49,3 +61,43 @@
         </div>
     </div>
 </div>
+
+<!-- MODALE -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Conferma Cancellazione</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Sei sicuro di voler cancellare la pizza <span id="pizzaName"></span>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteButton">Conferma</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JAVASCRIPT PER LA MODALE E SWITCH -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let formIdToDelete = null;
+
+        function setFormId(formId, pizzaName) {
+            formIdToDelete = formId;
+            document.getElementById('pizzaName').textContent = pizzaName;
+        }
+
+        // setFormId disponibile globalmente
+        window.setFormId = setFormId;
+
+        document.getElementById('confirmDeleteButton').addEventListener('click', function () {
+            if (formIdToDelete) {
+                document.getElementById('deletePizzaForm-' + formIdToDelete).submit();
+            }
+        });
+    });
+</script>

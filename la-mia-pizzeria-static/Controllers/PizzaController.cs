@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace la_mia_pizzeria_static.Controllers
 {
-    [Authorize]
     public class PizzaController : Controller
     {
         public IActionResult Index()
