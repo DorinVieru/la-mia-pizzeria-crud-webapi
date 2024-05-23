@@ -1,0 +1,51 @@
+﻿@using la_mia_pizzeria_static.Models
+@model Pizze
+
+@{
+    ViewData["Title"] = "Dettagli Pizza";
+    Layout = "_PizzeriaLayout";
+}
+
+<div class="container">
+    <h1 class="display-4 text-center fw-bold text-success">Pizza @Model.Name</h1>
+    <div class="row">
+        <div class="col-12">
+            <div class="card detail-card my-3">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        @if(Model.ImgSrc != null)
+                        {
+                            <img src="@Model.ImgSrc" class="img-fluid rounded-start" alt="@Model.Name">
+                        }
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text fs-5">Descizione: @Model.Description</p>
+                            <p class="card-text fs-5"> Prezzo: <strong class="text-success"> € @Model.Price.ToString("0.00")</strong></p>
+                            <p class="card-text">Categoria: @($"{Model.ViewCategory()}")</p>
+                            <p class="card-text mb-0"> Ingredienti da cui è composta:
+                                @if (Model.Ingredients?.Count > 0)
+                                 {
+                                    <div class="d-flex flex-wrap">
+                                        @foreach (var ing in Model.Ingredients)
+                                        {
+                                            <div class="ingredients m-1 p-1 text-white"> @ing.Name </div>
+                                        }
+                                    </div>
+                                 }
+                                 else
+                                 {
+                                    <span class="fw-bold">Non sono stati ancora aggiunti gli ingedienti di cui è composta la pizza.</span>
+                                 }
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 mb-5 text-center">
+            <a href="@Url.Action("Index", "Pizza")" class="btn btn-primary">Torna all'elenco di tutte le pizze</a>
+        </div>
+    </div>
+</div>
