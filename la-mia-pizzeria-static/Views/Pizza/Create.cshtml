@@ -4,6 +4,9 @@
 @{
     ViewData["Title"] = "Crea la tua pizza";
     Layout = "_PizzeriaLayout";
+
+    var defaultImagePath = Url.Content("~/img/no-image.jpg");
+    var imagePath = string.IsNullOrEmpty(Model.Pizza.ImgSrc) ? defaultImagePath : Model.Pizza.ImgSrc;
 }
 
 @if (User.IsInRole("Admin"))
@@ -26,35 +29,40 @@
                         <textarea asp-for="Pizza.Description" class="form-control" id="description" rows="4"></textarea>
                         <span asp-validation-for="Pizza.Description" class="text-danger fw-bold"></span>
                     </div>
-                    <div class="row mb-3">
+                    <div class="row mb-3 align-items-center">
                         <div class="col">
                             <label asp-for="ImageFormFile" class="form-label">Immagine</label>
-                            <img src="@Model.Pizza.ImgSrc">
-                            <input type="file" asp-for="ImageFormFile" name="ImageFormFile" class="form-control" id="ImageFormFile"/>
+
+                            <input type="file" asp-for="ImageFormFile" name="ImageFormFile" class="form-control" id="ImageFormFile" />
                             <span asp-validation-for="Pizza.ImgFile" class="text-danger fw-bold"></span>
                         </div>
+                        <div class="col text-end">
+                            <img src="@imagePath" class="w-50 mb-1 rounded-3" id="previewImage">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="price" class="form-label">Prezzo</label>
                             <input type="text" asp-for="Pizza.Price" class="form-control" id="price" />
                             <span asp-validation-for="Pizza.Price" class="text-danger fw-bold"></span>
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="category" class="form-label">Categoria da assegnare:</label>
-                        <select asp-for="Pizza.CategoryId" rows="10" class="form-select">
-                            <option value=""></option>
-                            @foreach (Category category in Model.Categories)
-                            {
-                                @if (Model.Pizza.CategoryId == category.Id)
+                        <div class="col">
+                            <label for="description" class="form-label">Categoria da assegnare:</label>
+                            <select asp-for="Pizza.CategoryId" rows="10" class="form-select">
+                                <option value=""></option>
+                                @foreach (Category category in Model.Categories)
                                 {
-                                    <option value="@category.Id" selected>@category.Title</option>
+                                    @if (Model.Pizza.CategoryId == category.Id)
+                                    {
+                                        <option value="@category.Id" selected>@category.Title</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@category.Id">@category.Title</option>
+                                    }
                                 }
-                                else
-                                {
-                                    <option value="@category.Id">@category.Title</option>
-                                }
-                            }
-                        </select>
+                            </select>
+                        </div>
                     </div>
                     <div class="mb-5">
                         <label for="ingredient" class="form-label">Seleziona degli ingredienti:</label>
@@ -62,7 +70,7 @@
                             @for (int i = 0; i < Model.Ingredients.Count; i++)
                             {
                                 string ingredientId = "ingredient" + i;
-                                <input type="checkbox" class="btn-check" id="@ingredientId" name="SelectedTags" value="@Model.Ingredients[i].Value"
+                                <input type="checkbox" class="btn-check" id="@ingredientId" name="SelectedIngredients" value="@Model.Ingredients[i].Value"
                                        @(Model.SelectedIngredients.Contains(Model.Ingredients[i].Value) ? "checked" : "") autocomplete="off" />
                                 <label class="btn btn-outline-light m-1" for="@ingredientId">@Model.Ingredients[i].Text</label>
                             }
@@ -95,3 +103,15 @@ else
     </div>
 }
 
+<script>
+    document.getElementById('ImageFormFile').addEventListener('change', function(event) {
+        var file = event.target.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('previewImage').src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+</script>

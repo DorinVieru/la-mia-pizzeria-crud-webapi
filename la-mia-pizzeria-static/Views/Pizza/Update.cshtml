@@ -4,6 +4,9 @@
 @{
     ViewData["Title"] = "Modifica la tua pizza";
     Layout = "_PizzeriaLayout";
+
+    var defaultImagePath = Url.Content("~/img/no-image.jpg");
+    var imagePath = string.IsNullOrEmpty(Model.Pizza.ImgSrc) ? defaultImagePath : Model.Pizza.ImgSrc;
 }
 
 @if (User.IsInRole("Admin"))
@@ -35,7 +38,7 @@
                             <span asp-validation-for="Pizza.ImgFile" class="text-danger fw-bold"></span>
                         </div>
                         <div class="col text-end">
-                            <img src="@Model.Pizza.ImgSrc" class="w-50 mb-1 rounded-3">
+                            <img src="@imagePath" class="w-50 mb-1 rounded-3" id="previewImage">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -102,4 +105,16 @@ else
     </div>
 }
 
+<script>
+    document.getElementById('ImageFormFile').addEventListener('change', function(event) {
+        var file = event.target.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('previewImage').src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
 
