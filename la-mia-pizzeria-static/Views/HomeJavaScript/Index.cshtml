@@ -32,7 +32,7 @@
                 }
             }).then((res) =>
             {
-                if (res.data.length == 0) // Non abbiamo nessuna pizza
+                if (res.data.length == 0) // Non c'è nessuna pizza
                 {
                     document.querySelector('.js-no-pizza').classList.remove('d-none');
                     document.querySelector('.js-pizza-show').classList.add('d-none');
@@ -65,5 +65,20 @@
             });
     }
 
+    function deleteById(id) {
+        axios.delete("/api/PizzaWebApi/DeletePizza/" + id)
+            .then((res) => {
+                loadList('');
+            });
+    }
+
     loadList('');
+
+    //function search() {
+
+    //    console.log(this.value);
+    //    loadList(this.value);
+    //}
+
+    //document.querySelector('.js_search').addEventListener('keyup', search)
 </script>
