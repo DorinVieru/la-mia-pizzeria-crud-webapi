@@ -20,12 +20,6 @@
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                @if (User.IsInRole("Admin"))
-                {
-                    <li class="nav-item">
-                        <a class="nav-link text-white fw-bold" aria-current="page" href="@Url.Action("Index", "Pizza")">Admin</a>
-                    </li>
-                }
                 <!-- code omitted -->
                 <partial name="_LoginPartial" />
             </ul>

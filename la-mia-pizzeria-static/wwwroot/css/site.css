@@ -14,9 +14,14 @@ html {
   min-height: 100%;
 }
 
-/*body {
-  margin-bottom: 60px;
-}*/
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
 
 /* HEADER */
 header {
@@ -128,9 +133,9 @@ li {
     background-color: rgba(0, 0, 0, 0.3);
 }
 
-@media (max-width: 768px) {
-    .carousel-caption {
-        font-size: 0.8rem; 
+@media (min-width: 768px) {
+    .carousel-caption p {
+        padding: 0 100px;
     }
 }
 
@@ -146,6 +151,10 @@ li {
     .carousel-caption p {
         font-size: 1.3rem !important;
         padding: 0 40px;
+    }
+    
+    .carousel-inner{
+        height: 480px !important;
     }
 }
 
@@ -182,6 +191,7 @@ li {
 
 /* FOOTER */
 footer {
+    margin-top: auto;
     background-image: url('../img/sfondo-hf.png');
     background-size: cover;
     background-position: center;

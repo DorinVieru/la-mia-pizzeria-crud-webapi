@@ -15,9 +15,12 @@
                     <button class="btn btn-outline-success ms-2 px-3" type="submit">Cerca</button>
                 </form>
             </div>
-            <div class="col-6 text-end pe-0 me-0">
-                <a href="@Url.Action("Create", "HomeJavaScript")" class="btn btn-danger">Crea una nuova pizza!</a>
-            </div>
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="col-6 text-end pe-0 me-0">
+                    <a href="@Url.Action("Create", "HomeJavaScript")" class="btn btn-danger">Crea una nuova pizza!</a>
+                </div>
+            }
         </div>
     </div>
     <div class="row js-no-pizza d-none">
