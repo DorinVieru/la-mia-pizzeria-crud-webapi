@@ -12,14 +12,14 @@
 <div class="col-12 my-5 text-md-end text-center">
     @if (User.IsInRole("Admin"))
     {
-        <a href="@Url.Action("Create", "Pizza")" class="btn btn-danger fs-3 mb-2">Crea una nuova pizza!</a>
+        <a href="@Url.Action("Create", "Pizza")" class="btn btn-danger fs-5">Crea una nuova pizza!</a>
     }
 </div>
 
 <div class="col-12">
     @if (User.IsInRole("Admin"))
     {
-        <div class="btn-group mt-4" role="group" aria-label="View Switcher">
+        <div class="btn-group" role="group" aria-label="View Switcher">
             <input type="radio" class="btn-check" name="viewSwitcher" id="cardViewRadio" autocomplete="off" checked>
             <label class="btn btn-outline-danger" for="cardViewRadio">
                 <i class="fa-solid fa-box"></i> Card

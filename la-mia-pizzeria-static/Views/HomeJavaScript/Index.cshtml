@@ -16,7 +16,7 @@
                 </form>
             </div>
             <div class="col-6 text-end pe-0 me-0">
-                <a href="@Url.Action("Create", "Home")" class="btn btn-danger">Crea una nuova pizza!</a>
+                <a href="@Url.Action("Create", "HomeJavaScript")" class="btn btn-danger">Crea una nuova pizza!</a>
             </div>
         </div>
     </div>
@@ -30,9 +30,11 @@
     </div>
 </div>
 
+@*SCRIPT AXIOS*@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script>
+    // FUNZIONE PER CARICARE LA LISTA DELLE PIZZE
     function loadList(nameFilter)
     {
         axios.get('api/PizzaWebApi/GetAllPizzas',
@@ -75,6 +77,7 @@
             });
     }
 
+    // FUNZIONE PER CANCELLARE PIZZA
     function deleteById(id) {
         axios.delete("/api/PizzaWebApi/DeletePizza/" + id)
             .then((res) => {
@@ -82,10 +85,11 @@
             });
     }
 
+    // RICHIAMO FUNZIONE PER CARICARE LA LISTA
     loadList('');
 
+    // FUNZIONE PER RICERCARE UNA PIZZA COL SUO NOME
     function search() {
-        console.log(this.value);
         loadList(this.value);
     }
 

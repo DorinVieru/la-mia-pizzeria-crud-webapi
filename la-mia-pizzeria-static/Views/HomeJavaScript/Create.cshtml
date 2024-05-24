@@ -1,5 +1,68 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Crea la tua pizza";
+    Layout = "_PizzeriaLayout";
 }
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-12 text-center">
+            <h2>Crea la <span class="text-danger">tua pizza</span> personalizzata</h2>
+        </div>
+        <div class="col-12 col-sm-11 col-lg-8">
+            <form onsubmit="creaPizza(event)" method="post" class="my-4 personal-bg rounded-3 p-4 text-black" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nome</label>
+                    <input type="text" id="PizzaName" class="form-control" id="name" />
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Descrizione della pizza</label>
+                    <textarea id="PizzaDescription" class="form-control" id="description" rows="4"></textarea>
+                </div>
+                <div class="row mb-3 align-items-center">
+                    <div class="col-12 col-md-6 mb-3 mb-lg-0">
+                        <label id="PizzaImg" class="form-label">Immagine</label>
+                        <input type="file" id="PizzaImg" name="ImageFormFile" class="form-control" id="ImageFormFile" />
+                    </div>
+                    <div class="col-12 col-md-6 mb-3 mb-md-0">
+                        <label for="price" class="form-label">Prezzo</label>
+                        <input type="text" id="PizzaPrice" class="form-control" id="price" />
+                    </div>
+                </div>
+                <div class="text-center">
+                    <input type="submit" class="btn btn-danger fs-5 px-5 btn-crea-modifica" value="CREA ORA!">
+                </div>
+            </form>
+        </div>
+        <div class="col-12 my-5 text-center">
+            <a href="@Url.Action("Index", "Pizza")" class="btn btn-primary">Torna all'elenco di tutte le pizze</a>
+            <a href="@Url.Action("Index", "Home")" class="btn btn-primary mt-2 mt-md-0">Ricomincia dalla Home</a>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+    // FUNZIONE PER CREARE UNA NUOVA PIZZA
+    function creaPizza(evt) {
+        evt.preventDefault();
+        var name = document.getElementById('PizzaName').value;
+        var description = document.getElementById('PizzaDescription').value;
+        var imgFile = document.getElementById('PizzaImg').value;
+        var price = document.getElementById('PizzaPrice').value;
+
+        axios.post('/api/PizzaWebApi/CreatePizza', {
+            name: name,
+            description: description,
+            imgFile: imgFile,
+            price: price
+        })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+</script>
