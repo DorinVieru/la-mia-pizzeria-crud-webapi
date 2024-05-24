@@ -7,6 +7,10 @@
     <div class="row">
         <div class="col-12 mb-3 d-flex justify-content-center">
             <h1>Lista delle pizze</h1>
+            <form class="d-flex" role="search">
+                <input class="form-control ms-5 js-search" type="search" placeholder="Nome della pizza" aria-label="Search">
+                <button class="btn btn-outline-success ms-2 px-3" type="submit">Cerca</button>
+            </form>
         </div>
     </div>
     <div class="row js-no-pizza d-none">
@@ -45,7 +49,6 @@
 
                     pizzaShow.innerHTML = '';
                     res.data.forEach((pizza) => {
-                        console.log(pizza);
                         pizzaShow.innerHTML += `
                             <div class="col col-12 mb-3 d-flex justify-content-center">
                                 <div class="card my-list-card h-100 mb-3" style="width: 22rem;">
@@ -74,11 +77,10 @@
 
     loadList('');
 
-    //function search() {
+    function search() {
+        console.log(this.value);
+        loadList(this.value);
+    }
 
-    //    console.log(this.value);
-    //    loadList(this.value);
-    //}
-
-    //document.querySelector('.js_search').addEventListener('keyup', search)
+    document.querySelector('.js-search').addEventListener('keyup', search)
 </script>
