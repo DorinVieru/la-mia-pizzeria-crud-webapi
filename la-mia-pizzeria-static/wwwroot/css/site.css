@@ -151,11 +151,11 @@ li {
 
 /* MAIN */
 .my-list-card {
-    transition: box-shadow 0.5s, transform 0.5s; 
+    transition: box-shadow 0.5s, transform 0.5s;
 }
 
 .my-list-card:hover {
-    box-shadow: 0px 0px 10px 0px rgba(25, 135, 84, 0.5);
+    box-shadow: 0px 0px 10px 0px #FF9D2E;
     transform: scale(1.03); 
 }
 

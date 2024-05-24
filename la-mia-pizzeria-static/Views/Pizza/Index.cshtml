@@ -39,10 +39,10 @@
             @foreach (var pizza in Model)
             {
                 <div class="col mb-3 d-flex justify-content-center">
-                    <div class="card my-list-card h-100 border-success mb-3" style="width: 22rem;">
+                    <div class="card my-list-card h-100 mb-3" style="width: 22rem;">
                         <div class="position-relative">
                             <img src="@(string.IsNullOrEmpty(pizza.ImgSrc) ? defaultImagePath : pizza.ImgSrc)" class="img-fluid rounded-start" alt="@pizza.Name">
-                            <span class="fs-6 badge bg-success position-absolute top-0 end-0 m-2">€ @pizza.Price.ToString("0.00")</span>
+                            <span class="fs-6 badge position-absolute top-0 end-0 m-2" style="background-color: #FF9D2E";>€ @pizza.Price.ToString("0.00")</span>
                         </div>
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title">@pizza.Name</h5>
