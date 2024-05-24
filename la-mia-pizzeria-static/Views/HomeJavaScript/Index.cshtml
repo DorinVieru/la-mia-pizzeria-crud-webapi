@@ -6,11 +6,18 @@
 <div class="container">
     <div class="row">
         <div class="col-12 mb-3 d-flex justify-content-center">
-            <h1>Lista delle pizze</h1>
-            <form class="d-flex" role="search">
-                <input class="form-control ms-5 js-search" type="search" placeholder="Nome della pizza" aria-label="Search">
-                <button class="btn btn-outline-success ms-2 px-3" type="submit">Cerca</button>
-            </form>
+            <h1>Lista delle pizze</h1>   
+        </div>
+        <div class="row pe-0">
+            <div class="col-6 text-start">
+                <form class="d-flex" role="search">
+                    <input class="form-control w-50 js-search" type="search" placeholder="Nome della pizza" aria-label="Search">
+                    <button class="btn btn-outline-success ms-2 px-3" type="submit">Cerca</button>
+                </form>
+            </div>
+            <div class="col-6 text-end pe-0 me-0">
+                <a href="@Url.Action("Create", "Home")" class="btn btn-danger">Crea una nuova pizza!</a>
+            </div>
         </div>
     </div>
     <div class="row js-no-pizza d-none">
