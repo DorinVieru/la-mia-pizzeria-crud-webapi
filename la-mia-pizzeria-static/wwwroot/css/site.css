@@ -47,7 +47,7 @@ li {
 }
 
 .nav-footer::before {
-    width: 20%;
+    width: 0;
 }
 
 .nav-link:hover::before,
@@ -82,7 +82,6 @@ li {
     z-index: 4;
 }
 
-
 .carousel-dark-overlay {
     position: relative;
 }
@@ -98,7 +97,7 @@ li {
     z-index: 1;
 }
 
-/* Assicurarsi che il testo sia sopra l'overlay */
+/* Testo sopra l'overlay */
 .carousel-dark-overlay .carousel-caption {
     position: relative;
     top: 35%;
@@ -122,6 +121,27 @@ li {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+    .carousel-caption {
+        font-size: 0.8rem; 
+    }
+}
+
+@media (max-width: 576px) {
+    .carousel-caption {
+        font-size: 0.7rem;
+    }
+
+    .carousel-caption h5 {
+        font-size: 1rem;
+    }
+
+    .carousel-caption p {
+        font-size: 1.3rem !important;
+        padding: 0 40px;
+    }
 }
 
 /* MAIN */
@@ -157,7 +177,6 @@ li {
 
 /* FOOTER */
 footer {
-    height: 260px;
     font-size: 18px;
 }
 
