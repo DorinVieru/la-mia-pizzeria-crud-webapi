@@ -64,7 +64,7 @@ namespace la_mia_pizzeria_static.Models
             if (search == null)
                 return db.Pizze.ToList();
 
-            return db.Pizze.Where(p => p.Name.ToLower().Contains(search)).ToList();
+            return db.Pizze.Where(p => p.Name.ToLower().Contains(search.ToLower())).ToList();
         }
 
         // MODIFICARE UNA PIZZA

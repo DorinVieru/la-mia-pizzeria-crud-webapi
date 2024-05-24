@@ -9,18 +9,61 @@
             <h1>Lista delle pizze</h1>
         </div>
     </div>
-    <div class="row">
+    <div class="row js-no-pizza d-none">
         <div class="col-12 mb-3 d-flex justify-content-center">
             <h4>Non hai inserito nessuna pizza</h4>
         </div>
     </div>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 mt-3 mb-5">
-        <div class="col-12 mb-3 d-flex justify-content-center">
-            
-        </div>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 mt-3 mb-5 js-pizza-show d-none">
+
     </div>
 </div>
 
-<script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+<script>
+    function loadList(nameFilter)
+    {
+        axios.get('api/PizzaWebApi/GetAllPizzas',
+            {
+                params:
+                {
+                    name: nameFilter
+                }
+            }).then((res) =>
+            {
+                if (res.data.length == 0) // Non abbiamo nessuna pizza
+                {
+                    document.querySelector('.js-no-pizza').classList.remove('d-none');
+                    document.querySelector('.js-pizza-show').classList.add('d-none');
+                }
+                else
+                {
+                    document.querySelector('.js-no-pizza').classList.add('d-none');
+                    var pizzaShow = document.querySelector('.js-pizza-show');
+                    pizzaShow.classList.remove('d-none');
+
+                    pizzaShow.innerHTML = '';
+                    res.data.forEach((pizza) => {
+                        console.log(pizza);
+                        pizzaShow.innerHTML += `
+                            <div class="col col-12 mb-3 d-flex justify-content-center">
+                                <div class="card my-list-card h-100 mb-3" style="width: 22rem;">
+                                    <div class="position-relative">
+                                        <img src="${pizza.imgSrc}" class="img-fluid rounded-start" alt="${pizza.name}"/>
+                                        <span class="fs-6 badge position-absolute top-0 end-0 m-2" style="background-color: #FF9D2E";>€ ${pizza.price}</span>
+                                    </div>
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title">${pizza.name}</h5>
+                                        <p class="card-text">${pizza.description}</p>
+                                        <button class="btn btn-danger mt-auto" onclick="deleteById(${pizza.id})">Elimina</button>
+                                    </div>
+                                </div>
+                            </div>`;
+                    });
+                }
+            });
+    }
+
+    loadList('');
 </script>
