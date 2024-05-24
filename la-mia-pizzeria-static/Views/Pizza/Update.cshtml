@@ -11,13 +11,13 @@
 
 @if (User.IsInRole("Admin"))
 {
-    <div class="container">
+    <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-12 text-center">
-                <h2>Modifica la <span class="text-danger">tua pizza</span> personalizzata</h2>
+                <h2>Modifica pizza <span class="text-danger">@Model.Pizza.Name</span></h2>
             </div>
-            <div class="col-7">
-                <form asp-controller="Pizza" asp-action="Update" asp-route-id="@Model.Pizza.Id" enctype="multipart/form-data" method="post" class="my-4 bg-success rounded-3 p-4 text-white">
+            <div class="col-12 col-sm-11 col-lg-8">
+                <form asp-controller="Pizza" asp-action="Update" asp-route-id="@Model.Pizza.Id" enctype="multipart/form-data" method="post" class="my-4 personal-bg rounded-3 p-4 text-black">
                     @Html.AntiForgeryToken()
 
                     <div class="mb-3">
@@ -31,23 +31,23 @@
                         <span asp-validation-for="Pizza.Description" class="text-danger fw-bold"></span>
                     </div>
                     <div class="row mb-3 align-items-center">
-                        <div class="col">
+                        <div class="col-12 col-md-6 mb-3 mb-lg-0">
                             <label asp-for="ImageFormFile" class="form-label">Immagine</label>
 
                             <input type="file" asp-for="ImageFormFile" name="ImageFormFile" class="form-control" id="ImageFormFile" />
                             <span asp-validation-for="Pizza.ImgFile" class="text-danger fw-bold"></span>
                         </div>
-                        <div class="col text-end">
+                        <div class="col-12 col-md-6 text-start text-md-end">
                             <img src="@imagePath" class="w-50 mb-1 rounded-3" id="previewImage">
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col">
+                        <div class="col-12 col-md-6 mb-3 mb-md-0">
                             <label for="price" class="form-label">Prezzo</label>
                             <input type="text" asp-for="Pizza.Price" class="form-control" id="price" />
                             <span asp-validation-for="Pizza.Price" class="text-danger fw-bold"></span>
                         </div>
-                        <div class="col">
+                        <div class="col-12 col-md-6">
                             <label for="description" class="form-label">Categoria da assegnare:</label>
                             <select asp-for="Pizza.CategoryId" rows="10" class="form-select">
                                 <option value=""></option>
@@ -73,19 +73,19 @@
                                 string ingredientId = "ingredient" + i;
                                 <input type="checkbox" class="btn-check" id="@ingredientId" name="SelectedIngredients" value="@Model.Ingredients[i].Value"
                                        @(Model.SelectedIngredients.Contains(Model.Ingredients[i].Value) ? "checked" : "") autocomplete="off" />
-                                <label class="btn btn-outline-light m-1" for="@ingredientId">@Model.Ingredients[i].Text</label>
+                                <label class="btn btn-outline-dark m-1" for="@ingredientId">@Model.Ingredients[i].Text</label>
                             }
                         </div>
                     </div>
                     <div class="text-center">
-                        <a asp-action="Index" class="btn btn-secondary px-5">Annulla</a>
-                        <input type="submit" class="btn btn-danger px-5" value="Modifica la tua Pizza">
+                        <a asp-action="Index" class="btn btn-secondary px-5 btn-crea-modifica">Annulla</a>
+                        <input type="submit" class="btn btn-danger px-5 btn-crea-modifica mt-2 mt-md-0" value="Modifica la tua Pizza">
                     </div>
                 </form>
             </div>
             <div class="col-12 my-5 text-center">
                 <a href="@Url.Action("Index", "Pizza")" class="btn btn-primary">Torna all'elenco di tutte le pizze</a>
-                <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Ricomincia dalla Home</a>
+                <a href="@Url.Action("Index", "Home")" class="btn btn-primary mt-2 mt-md-0">Ricomincia dalla Home</a>
             </div>
         </div>
     </div>
@@ -99,7 +99,7 @@ else
             </div>
             <div class="col-12 my-5 text-center">
                 <a href="@Url.Action("Index", "Pizza")" class="btn btn-primary">Torna all'elenco di tutte le pizze</a>
-                <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Ricomincia dalla Home</a>
+                <a href="@Url.Action("Index", "Home")" class="btn btn-primary mt-2 mt-md-0">Ricomincia dalla Home</a>
             </div>
         </div>
     </div>

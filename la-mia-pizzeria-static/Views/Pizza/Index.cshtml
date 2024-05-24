@@ -9,22 +9,14 @@
     var defaultImagePath = Url.Content("~/img/no-image.jpg");
 }
 
-<div class="col-12 my-5 text-center">
+<div class="col-12 my-5 text-md-end text-center">
     @if (User.IsInRole("Admin"))
     {
         <a href="@Url.Action("Create", "Pizza")" class="btn btn-danger fs-3 mb-2">Crea una nuova pizza!</a>
-        <p>Verrà automaticamente aggiunta all'elenco di tutte le pizze disponibili nel nostro rinomato ristorante.</p>
     }
 </div>
 
 <div class="col-12">
-    <h3 class="fs-1 text-center">La pizzeria che ti fa <span class="text-danger">esplodere</span></h3>
-    <p class="text-center">
-        Qui di seguito l'elenco di tutte le pizze disponibili nel nostro menù. <br />
-        Ogni pizza è stata accuratamente scelta e creata per soddisfare ogni esigenza del cliente e vivere un'esperienza indimenticabile. <br />
-        L'elenco è in costante aggiornamento e TU puoi contribuire a miglirarlo!
-    </p>
-
     @if (User.IsInRole("Admin"))
     {
         <div class="btn-group mt-4" role="group" aria-label="View Switcher">
@@ -38,16 +30,15 @@
                 <i class="fa-solid fa-table"></i> Tabella
             </label>
         </div>
-    }
-        
+    }  
 
     @if (Model.Any())
     {
         // CARD
-        <div id="cardView" class="row row-cols-1 row-cols-md-3 mt-3">
+        <div id="cardView" class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 mt-3 mb-5">
             @foreach (var pizza in Model)
             {
-                <div class="col-md-4 mb-3">
+                <div class="col mb-3 d-flex justify-content-center">
                     <div class="card my-list-card h-100 border-success mb-3" style="width: 22rem;">
                         <div class="position-relative">
                             <img src="@(string.IsNullOrEmpty(pizza.ImgSrc) ? defaultImagePath : pizza.ImgSrc)" class="img-fluid rounded-start" alt="@pizza.Name">
@@ -77,14 +68,14 @@
             }
         </div>
         // TABELLA
-        <div id="tableView" class="d-none mt-3">
+        <div id="tableView" class="d-none mt-3 mb-5">
             <table class="table table-striped">
                 <thead>
                     <tr class="table-dark">
                         <th>Nome</th>
-                        <th>Img</th>
-                        <th>Descrizione</th>
-                        <th>Prezzo (€)</th>
+                        <th class="d-none d-lg-table-cell">Img</th>
+                        <th class="d-none d-md-table-cell">Descrizione</th>
+                        <th>Prezzo</th>
                         <th>Strumenti</th>
                     </tr>
                 </thead>
@@ -93,12 +84,12 @@
                     {
                         <tr>
                             <td>@pizza.Name</td>
-                            <td> <img src="@(string.IsNullOrEmpty(pizza.ImgSrc) ? defaultImagePath : pizza.ImgSrc)" class="img-fluid rounded-start" alt="@pizza.Name" style="width: 100px;"> </td>
-                            <td>@($"{pizza.Description.SafeSubstring(20)}")</td>
+                            <td class="d-none d-lg-table-cell"> <img src="@(string.IsNullOrEmpty(pizza.ImgSrc) ? defaultImagePath : pizza.ImgSrc)" class="img-fluid rounded-3" alt="@pizza.Name" style="width: 100px;"> </td>
+                            <td class="d-none d-md-table-cell">@($"{pizza.Description.SafeSubstring(20)}")</td>
                             <td>€ @pizza.Price.ToString("0.00")</td>
                             <td>
                                 <a href="@Url.Action("Details", "Pizza", new { id = pizza.Id })" class="btn btn-success"><i class="fa-solid fa-eye"></i></a>
-                                <a href="@Url.Action("Update", "Pizza", new { id = pizza.Id })" class="btn btn-warning my-2"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="@Url.Action("Update", "Pizza", new { id = pizza.Id })" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
                                 <form id="deletePizzaForm-@pizza.Id" data-form-id="@pizza.Id" asp-controller="Pizza" asp-action="Delete" asp-route-id="@pizza.Id" method="post" class="d-inline">
                                     @Html.AntiForgeryToken()
                                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setFormId('@pizza.Id', '@pizza.Name')">

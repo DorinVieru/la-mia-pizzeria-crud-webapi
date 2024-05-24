@@ -14,7 +14,7 @@
         <div class="col-12">
             <div class="card detail-card my-3">
                 <div class="row g-0">
-                    <div class="col-md-4">
+                    <div class="col-lg-4">
                         <img src="@(string.IsNullOrEmpty(Model.ImgSrc) ? defaultImagePath : Model.ImgSrc)" class="img-fluid rounded-start" alt="@Model.Name">
                     </div>
                     <div class="col-md-8">
@@ -42,9 +42,9 @@
                             @if (User.IsInRole("Admin"))
                             {
                                 @*MODIFICA*@
-                                <a href="@Url.Action("Update", "Pizza", new { id = Model.Id })" class="btn btn-warning mt-5 px-5"><i class="fa-solid fa-pen-to-square"></i> Modifica</a>
+                                <a href="@Url.Action("Update", "Pizza", new { id = Model.Id })" class="btn btn-warning mt-2 mt-lg-5 px-5"><i class="fa-solid fa-pen-to-square"></i> Modifica</a>
                                 @*CANCELLAZIONE*@
-                                <a href="javascript:void(0);" class="btn btn-danger mt-5 px-5" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-form-id="@Model.Id" data-pizza-name="@Model.Name" onclick="setFormId('@Model.Id', '@Model.Name')">
+                                <a href="javascript:void(0);" class="btn btn-danger mt-2 mt-lg-5 px-5" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-form-id="@Model.Id" data-pizza-name="@Model.Name" onclick="setFormId('@Model.Id', '@Model.Name')">
                                     <i class="fa-solid fa-trash"></i> Cancella
                                 </a>
                                 <form id="deletePizzaForm-@Model.Id" asp-controller="Pizza" asp-action="Delete" asp-route-id="@Model.Id" method="post" class="d-none">

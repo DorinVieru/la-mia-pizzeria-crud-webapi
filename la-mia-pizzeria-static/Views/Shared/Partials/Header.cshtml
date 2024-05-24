@@ -1,9 +1,14 @@
 ﻿
-<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow">
+<nav class="navbar navbar-expand-lg navbar-dark border-bottom box-shadow">
     <div class="container-fluid">
-        <a asp-area="" asp-controller="Home" asp-action="Index"><img class="w-25" src="~/img/logo-pizza-bomba.png" /></a>
-        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-            <ul class="navbar-nav flex-grow-1">
+        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+            <img class="img-fluid me-5" src="~/img/logo-pizza-bomba.png" alt="Logo" style="max-width: 150px;" />
+        </a>
+        <button class="navbar-toggler btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                 </li>
@@ -11,9 +16,7 @@
                     <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Pizza" asp-action="Index">Le nostre pizze</a>
                 </li>
             </ul>
-        </div>
-        <div class="collapse navbar-collapse d-sm-inline-flex justify-content-end" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 @if (User.IsInRole("Admin"))
                 {
                     <li class="nav-item">
